@@ -1,0 +1,1 @@
+c:\users\johns\documents\visual studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2Content\obj\x86\Debug\WindowsGame2Content.contentprojResolveAssemblyReference.cache

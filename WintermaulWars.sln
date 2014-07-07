@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WintermaulWars", "WindowsGame2\WindowsGame2\WintermaulWars.csproj", "{E8DEEC7A-501F-4CCB-85CB-54AF6200314D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WintermaulWarsContent", "WindowsGame2\WindowsGame2Content\WintermaulWarsContent.contentproj", "{77689DB2-57AC-47C5-9DE9-EA3559823A0B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E8DEEC7A-501F-4CCB-85CB-54AF6200314D}.Debug|x86.ActiveCfg = Debug|x86
+		{E8DEEC7A-501F-4CCB-85CB-54AF6200314D}.Debug|x86.Build.0 = Debug|x86
+		{E8DEEC7A-501F-4CCB-85CB-54AF6200314D}.Release|x86.ActiveCfg = Release|x86
+		{E8DEEC7A-501F-4CCB-85CB-54AF6200314D}.Release|x86.Build.0 = Release|x86
+		{77689DB2-57AC-47C5-9DE9-EA3559823A0B}.Debug|x86.ActiveCfg = Debug|x86
+		{77689DB2-57AC-47C5-9DE9-EA3559823A0B}.Release|x86.ActiveCfg = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
