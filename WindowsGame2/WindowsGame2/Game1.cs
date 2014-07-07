@@ -25,6 +25,8 @@ namespace WindowsGame2
         Vector4 viewport;
         Rectangle map;
         byte[,] tiles;
+        string towerSelected;
+        List<string> towerStrings;
 
         // For zooming in and out
         MouseState ms;
@@ -124,10 +126,19 @@ namespace WindowsGame2
             tileTextures.Add(3, red);
             tileTextures.Add(4, wall);
 
+            towerStrings = new List<string>();
+            towerStrings.Add("tower_basic");
+            towerStrings.Add("tower_fire");
+            towerStrings.Add("tower_lightning");
+
             textures = new Dictionary<string, Texture2D>();
             textures.Add("hud", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\hud.png", FileMode.Open)));
-            textures.Add("tower_basic", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\tower_basic.png", FileMode.Open)));
+            foreach (string towerString in towerStrings)
+            {
+                textures.Add(towerString, Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\" + towerString + ".png", FileMode.Open)));
+            }
             textures.Add("selected", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\selected.png", FileMode.Open)));
+            towerSelected = "";
         }
 
         /// <summary>
@@ -200,6 +211,17 @@ namespace WindowsGame2
             {
                 mousePressedLocation.X = screenToGameX(ms.X - viewport.X);
                 mousePressedLocation.Y = screenToGameY(ms.Y - viewport.Y);
+                if(ms.X < 0 || ms.Y < hudHeight || ms.X > screenWidth() || ms.Y > screenHeight()){
+                    // Press not on map, check if on hud buttons
+                    towerSelected = "";
+                    for (int i = 0; i < towerStrings.Count; i++)
+                    {
+                        if (ms.X >= this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5) && ms.X <= this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .1 + .5) && ms.Y >= this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth) && ms.Y <= (this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth)) + (hudWidth)){
+                            towerSelected = towerStrings[i];
+                        }
+                    }
+
+                }   
             }
             if (mousePressed)
             {
@@ -285,6 +307,15 @@ namespace WindowsGame2
             // Draw the HUD
             spriteBatch.Draw(textures["hud"], new Rectangle(this.GraphicsDevice.Viewport.Width - hudWidth, 0, hudWidth, this.GraphicsDevice.Viewport.Height), Color.White);
             spriteBatch.Draw(textures["hud"], new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, hudHeight), Color.White);
+
+            for (int i = 0; i < towerStrings.Count; i++)
+            {
+                if (towerSelected == towerStrings[i])
+                {
+                    spriteBatch.Draw(textures["selected"], new Rectangle(this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5), this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth), (int)(hudWidth * .8 + .5), (int)(hudWidth * .8 + .5)), Color.White);
+                }
+                spriteBatch.Draw(textures[towerStrings[i]], new Rectangle(this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5), this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth), (int)(hudWidth * .8 + .5), (int)(hudWidth * .8 + .5)), Color.White);
+            }
 
             ////////////////////////////////
             spriteBatch.End();

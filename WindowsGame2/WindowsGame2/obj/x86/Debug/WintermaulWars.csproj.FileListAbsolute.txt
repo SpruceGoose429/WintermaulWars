@@ -9,3 +9,6 @@ C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\W
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\hud.png
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\selected.png
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\tower_basic.png
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\star.png
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\tower_fire.png
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\tower_lightning.png
