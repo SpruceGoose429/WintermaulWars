@@ -82,6 +82,9 @@
     <Content Include="GameThumbnail.png">
       <XnaPlatformSpecific>true</XnaPlatformSpecific>
     </Content>
+    <Content Include="images\black.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="images\hud.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

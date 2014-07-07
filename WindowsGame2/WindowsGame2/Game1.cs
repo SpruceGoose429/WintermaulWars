@@ -137,6 +137,7 @@ namespace WindowsGame2
             textures = new Dictionary<string, Texture2D>();
             textures.Add("hud", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\hud.png", FileMode.Open)));
             textures.Add("yellow", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\yellow.png", FileMode.Open)));
+            textures.Add("black", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\black.png", FileMode.Open)));
 
             foreach (string towerString in towerStrings)
             {
@@ -315,7 +316,8 @@ namespace WindowsGame2
                         squareYellow = true;
                         yellowI = i;
                         yellowJ = j;
-                        spriteBatch.Draw(textures["yellow"], new Rectangle((int)(viewport.X + i * blockWidth), hudHeight + (int)(viewport.Y + j * blockHeight), w, h), Color.White);
+                        String color = tiles[i, j] == 4 ? "black" : "yellow";
+                        spriteBatch.Draw(textures[color], new Rectangle((int)(viewport.X + i * blockWidth), hudHeight + (int)(viewport.Y + j * blockHeight), w, h), Color.White * .8f);
                     }
                 }
             }
