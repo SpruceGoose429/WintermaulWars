@@ -6,3 +6,6 @@ C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\W
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.exe
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.pdb
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WintermaulWars.csprojResolveAssemblyReference.cache
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\hud.png
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\selected.png
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\bin\x86\Debug\images\tower_basic.png

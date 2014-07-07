@@ -20,7 +20,8 @@ namespace WindowsGame2
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         Texture2D wall, red, blue, green;
-        Dictionary<int, Texture2D> textures;
+        Dictionary<int, Texture2D> tileTextures;
+        Dictionary<string, Texture2D> textures;
         Vector4 viewport;
         Rectangle map;
         byte[,] tiles;
@@ -33,6 +34,9 @@ namespace WindowsGame2
         bool mousePressed;
         Vector2 mousePressedLocation;
 
+        int hudWidth = 75;
+        int hudHeight = 25;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
@@ -40,8 +44,8 @@ namespace WindowsGame2
 
             this.Window.AllowUserResizing = true;
             graphics.IsFullScreen = false;
-            graphics.PreferredBackBufferWidth = 512;
-            graphics.PreferredBackBufferHeight = 512;
+            graphics.PreferredBackBufferWidth = 512 + hudWidth;
+            graphics.PreferredBackBufferHeight = 512 + hudHeight;
 
             ms = Mouse.GetState();
             previousWheelValue = ms.ScrollWheelValue;
@@ -114,11 +118,16 @@ namespace WindowsGame2
                     }
                 }
             }
-            textures = new Dictionary<int, Texture2D>();
-            textures.Add(1, blue);
-            textures.Add(2, green);
-            textures.Add(3, red);
-            textures.Add(4, wall);
+            tileTextures = new Dictionary<int, Texture2D>();
+            tileTextures.Add(1, blue);
+            tileTextures.Add(2, green);
+            tileTextures.Add(3, red);
+            tileTextures.Add(4, wall);
+
+            textures = new Dictionary<string, Texture2D>();
+            textures.Add("hud", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\hud.png", FileMode.Open)));
+            textures.Add("tower_basic", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\tower_basic.png", FileMode.Open)));
+            textures.Add("selected", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\selected.png", FileMode.Open)));
         }
 
         /// <summary>
@@ -185,7 +194,6 @@ namespace WindowsGame2
 
             checkAndFixBounds();
             
-            System.Console.Write(String.Format("MouseX = {0:0.00}\nMouseY = {1:0.00}\n", viewport.X, viewport.Y));
             bool oldMousePressed = mousePressed;
             mousePressed = (ms.LeftButton == ButtonState.Pressed);
             if (mousePressed && !oldMousePressed)
@@ -250,28 +258,34 @@ namespace WindowsGame2
             spriteBatch.Begin();
             ////////////////////////////////
 
-            float width = this.GraphicsDevice.Viewport.Width;
-            float height = this.GraphicsDevice.Viewport.Height;
+            float width = screenWidth();
+            float height = screenHeight();
             float blockWidth = width / (viewport.W / 128);
             float blockHeight = height / (viewport.Z / 128);
 
+            // Draw the blocks 
             for (int i = 0; i < 100; i++)
             {
                 for (int j = 0; j < 100; j++)
                 {
                     int w = (int)blockWidth;
-                    while ((int)(viewport.X + (i+1)*blockWidth) - (int)(viewport.X + i*blockWidth) > w)
+                    if ((int)(viewport.X + (i+1)*blockWidth) - (int)(viewport.X + i*blockWidth) > w || i == 99)
                     {
                         w++;
                     }
                     int h = (int)blockHeight;
-                    while ((int)(viewport.Y + (j+1)*blockHeight) - (int)(viewport.Y + j*blockHeight) > h)
+                    if ((int)(viewport.Y + (j+1)*blockHeight) - (int)(viewport.Y + j*blockHeight) > h || j == 99)
                     {
                         h++;
                     }
-                    spriteBatch.Draw(textures[tiles[i,j]], new Rectangle((int)(viewport.X + i*blockWidth), (int)(viewport.Y + j*blockHeight), w, h), Color.White);
+                    spriteBatch.Draw(tileTextures[tiles[i,j]], new Rectangle((int)(viewport.X + i*blockWidth), hudHeight + (int)(viewport.Y + j*blockHeight), w, h), Color.White);
                 }
             }
+
+            // Draw the HUD
+            spriteBatch.Draw(textures["hud"], new Rectangle(this.GraphicsDevice.Viewport.Width - hudWidth, 0, hudWidth, this.GraphicsDevice.Viewport.Height), Color.White);
+            spriteBatch.Draw(textures["hud"], new Rectangle(0, 0, this.GraphicsDevice.Viewport.Width, hudHeight), Color.White);
+
             ////////////////////////////////
             spriteBatch.End();
 
@@ -279,19 +293,27 @@ namespace WindowsGame2
         }
         public float screenToGameX(float x)
         {
-            return (x / this.GraphicsDevice.Viewport.Width) * viewport.W;
+            return (x / screenWidth()) * viewport.W;
         }
         public float screenToGameY(float y)
         {
-            return (y / this.GraphicsDevice.Viewport.Height) * viewport.Z;
+            return (y / screenHeight()) * viewport.Z;
         }
         public float gameToScreenX(float x)
         {
-            return (x / viewport.W) * this.GraphicsDevice.Viewport.Width;
+            return (x / viewport.W) * screenWidth();
         }
         public float gameToScreenY(float y)
         {
-            return (y / viewport.Z) * this.GraphicsDevice.Viewport.Height;
+            return (y / viewport.Z) * screenHeight();
+        }
+        public int screenWidth()
+        {
+            return this.GraphicsDevice.Viewport.Width - hudWidth;
+        }
+        public int screenHeight()
+        {
+            return this.GraphicsDevice.Viewport.Height - hudHeight;
         }
     }
 }
