@@ -5,3 +5,4 @@ C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\W
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.exe
 C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WindowsGame2.pdb
+C:\Users\JohnS\Documents\Visual Studio 2012\Projects\WindowsGame2\WindowsGame2\WindowsGame2\obj\x86\Debug\WintermaulWars.csprojResolveAssemblyReference.cache
