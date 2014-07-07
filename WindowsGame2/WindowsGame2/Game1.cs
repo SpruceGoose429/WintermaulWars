@@ -27,6 +27,9 @@ namespace WindowsGame2
         byte[,] tiles;
         string towerSelected;
         List<string> towerStrings;
+        bool squareYellow;
+        int yellowI;
+        int yellowJ;
 
         // For zooming in and out
         MouseState ms;
@@ -133,12 +136,16 @@ namespace WindowsGame2
 
             textures = new Dictionary<string, Texture2D>();
             textures.Add("hud", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\hud.png", FileMode.Open)));
+            textures.Add("yellow", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\yellow.png", FileMode.Open)));
+
             foreach (string towerString in towerStrings)
             {
                 textures.Add(towerString, Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\" + towerString + ".png", FileMode.Open)));
             }
             textures.Add("selected", Texture2D.FromStream(graphics.GraphicsDevice, new FileStream("images\\selected.png", FileMode.Open)));
             towerSelected = "";
+
+            squareYellow = false;
         }
 
         /// <summary>
@@ -216,7 +223,7 @@ namespace WindowsGame2
                     towerSelected = "";
                     for (int i = 0; i < towerStrings.Count; i++)
                     {
-                        if (ms.X >= this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5) && ms.X <= this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .1 + .5) && ms.Y >= this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth) && ms.Y <= (this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth)) + (hudWidth)){
+                        if (ms.X >= this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5) && ms.X <= this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .1 + .5) && ms.Y >= this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth) && ms.Y <= (this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth)) + (hudWidth * .8)){
                             towerSelected = towerStrings[i];
                         }
                     }
@@ -285,6 +292,8 @@ namespace WindowsGame2
             float blockWidth = width / (viewport.W / 128);
             float blockHeight = height / (viewport.Z / 128);
 
+            squareYellow = false;
+
             // Draw the blocks 
             for (int i = 0; i < 100; i++)
             {
@@ -301,6 +310,13 @@ namespace WindowsGame2
                         h++;
                     }
                     spriteBatch.Draw(tileTextures[tiles[i,j]], new Rectangle((int)(viewport.X + i*blockWidth), hudHeight + (int)(viewport.Y + j*blockHeight), w, h), Color.White);
+                    if (towerSelected != "" && Mouse.GetState().X >= (int)(viewport.X + i * blockWidth) && Mouse.GetState().X < (int)(viewport.X + i * blockWidth) + w && Mouse.GetState().Y >= hudHeight + (int)(viewport.Y + j * blockHeight) && Mouse.GetState().Y < hudHeight + (int)(viewport.Y + j * blockHeight) + h)
+                    {
+                        squareYellow = true;
+                        yellowI = i;
+                        yellowJ = j;
+                        spriteBatch.Draw(textures["yellow"], new Rectangle((int)(viewport.X + i * blockWidth), hudHeight + (int)(viewport.Y + j * blockHeight), w, h), Color.White);
+                    }
                 }
             }
 
@@ -315,6 +331,12 @@ namespace WindowsGame2
                     spriteBatch.Draw(textures["selected"], new Rectangle(this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5), this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth), (int)(hudWidth * .8 + .5), (int)(hudWidth * .8 + .5)), Color.White);
                 }
                 spriteBatch.Draw(textures[towerStrings[i]], new Rectangle(this.GraphicsDevice.Viewport.Width - (int)(hudWidth * .9 + .5), this.GraphicsDevice.Viewport.Height - (int)(hudWidth * .9 + .5) - (i * hudWidth), (int)(hudWidth * .8 + .5), (int)(hudWidth * .8 + .5)), Color.White);
+            }
+
+            // Draw the tower fadded over the mouse
+            if (towerSelected != "")
+            {
+                spriteBatch.Draw(textures[towerSelected], new Rectangle((int)(Mouse.GetState().X - blockWidth / 2.0 + .5), (int)(Mouse.GetState().Y - blockHeight / 2.0 + .5), (int)(blockWidth + .5), (int)(blockHeight + .5)), Color.White * 0.8f);
             }
 
             ////////////////////////////////
